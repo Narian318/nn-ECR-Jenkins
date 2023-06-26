@@ -31,14 +31,14 @@ pipeline {
             }
              stage('stop previous containers') {
                steps {
-            sh 'docker ps -f name=mypythonContainer1 -q | xargs --no-run-if-empty docker container stop'
-            sh 'docker container ls -a -fname=mypythonContainer1 -q | xargs -r docker container rm'
+            sh 'docker ps -f name=mypythonContainer -q | xargs --no-run-if-empty docker container stop'
+            sh 'docker container ls -a -fname=mypythonContainer -q | xargs -r docker container rm'
          }
        }
             stage('Docker Run') {
               steps{
                    script {
-                sh 'docker run -d -p 8096:5000 --rm --name mypythonContainer1 167613117387.dkr.ecr.us-east-1.amazonaws.com/nn-ecr-jenkins:latest'     
+                sh 'docker run -d -p 8096:5000 --rm --name mypythonContainer 167613117387.dkr.ecr.us-east-1.amazonaws.com/nn-ecr-jenkins:latest'     
       }
     }
         }
