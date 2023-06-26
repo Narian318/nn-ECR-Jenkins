@@ -23,7 +23,7 @@ pipeline {
                   script {
                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws_cred', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
     sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 167613117387.dkr.ecr.us-east-1.amazonaws.com'
-     sh 'docker push 167613117387.dkr.ecr.us-east-1.amazonaws.com/nn-ecr-jenkins:latest'
+     sh 'docker push 167613117387.dkr.ecr.us-east-1.amazonaws.com/nn-ecr-jenkins:$(BUILD_NUMBER)'
 }
 
 }
@@ -38,7 +38,7 @@ pipeline {
             stage('Docker Run') {
               steps{
                    script {
-                sh 'docker run -d -p 8096:5000 --rm --name mypythonContainer 167613117387.dkr.ecr.us-east-1.amazonaws.com/nn-ecr-jenkins:latest'     
+                sh 'docker run -d -p 8096:5000 --rm --name mypythonContainer 167613117387.dkr.ecr.us-east-1.amazonaws.com/nn-ecr-jenkins:$(BUILD_NUMBER)'     
       }
     }
         }
